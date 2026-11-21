@@ -32,7 +32,7 @@ def run_etl():
 
         # 4. 加载数据 (Load)
         logging.info("开始连接 MySQL 并写入数据...")
-        engine = create_engine('mysql+pymysql://root:123456@localhost:3306/etl_project')
+        engine = create_engine('mysql+pymysql://root:123456@172.31.224.1:3306/etl_project')
         df.to_sql('clean_orders', con=engine, if_exists='replace', index=False)
         logging.info("数据成功写入数据库！")
 
