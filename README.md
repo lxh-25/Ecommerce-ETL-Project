@@ -30,3 +30,28 @@ Top 5 大客户挖掘：通过 GROUP BY 与聚合函数找出贡献销售额前 
 修改 project1_etl.py 中的数据库连接密码
 
 依次运行 create_data.py 和 project1_etl.py
+
+
+
+
+# Ecommerce ETL Project (电商数据清洗与入库)
+
+## 项目简介
+基于 Python 构建的工业级轻量 ETL 管道。针对包含大量冗余空列、时间格式混乱、金额精度丢失的真实电商数据（近 10 万行），进行自动化流式清洗，并最终落库至 MySQL，为下游 BI 分析提供高质量数据源。
+
+## 技术栈
+- **语言**：Python 3.12
+- **数据处理**：Pandas (Chunksize 分块流式处理)
+- **数据库**：MySQL 9.7, SQLAlchemy
+- **工程化**：Logging (日志追踪), Try-Except (异常捕获)
+
+## 核心功能与亮点
+1. **流式分块处理**：使用 Pandas `chunksize=20000` 进行迭代读取，彻底解决百万级大文件导致的内存溢出（OOM）问题。
+2. **数据清洗**：自动识别并剔除无用空列；精准修复浮点数精度丢失（保留两位小数）；统一混合时间格式。
+3. **增量入库**：采用 `append` 模式追加写入 MySQL，避免历史数据被覆盖。
+4. **日志与容错**：引入 Logging 模块记录全链路执行状态，并在异常发生时优雅退出。
+
+## 运行指南
+1. 安装依赖：`pip install pandas sqlalchemy pymysql`
+2. 配置数据库连接：在脚本中填入你的 MySQL 账号密码。
+3. 执行任务：`python taobao_etl.py`
